@@ -1,5 +1,4 @@
-﻿using Mission08_TeamXXXX.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mission08_Team4.Models
