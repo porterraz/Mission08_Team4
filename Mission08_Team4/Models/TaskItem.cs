@@ -10,7 +10,7 @@ namespace Mission08_Team4.Models
         public int TaskId { get; set; }
 
         [Required(ErrorMessage = "Task name is required")]
-        public string TaskName { get; set; }
+        public string TaskName { get; set; } = string.Empty;
 
         public string? DueDate { get; set; }
 
