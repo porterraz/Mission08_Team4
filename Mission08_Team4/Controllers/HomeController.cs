@@ -1,25 +1,62 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mission08_Team4.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mission08_Team4.Controllers
 {
     public class HomeController : Controller
     {
+        private ITaskRepository _repo;
+
+        [cite_start]// Constructor for Dependency Injection 
+        public HomeController(ITaskRepository temp)
+        {
+            _repo = temp;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            [cite_start]// The Quadrant View logic will be handled by Person 3 
+            var tasks = _repo.Tasks.Include(x => x.Category).ToList();
+            return View(tasks);
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult AddEditTask()
         {
-            return View();
+            [cite_start]// Populate dropdown with categories from the database 
+            ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
+            return View(new TaskItem());
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult AddEditTask(TaskItem response)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                [cite_start]// Check if it's a new task or an update 
+                if (response.TaskId == 0)
+                {
+                    _repo.AddTask(response);
+                }
+                else
+                {
+                    _repo.UpdateTask(response);
+                }
+                return RedirectToAction("Index");
+            }
+
+            [cite_start]// If validation fails, reload the form with categories 
+            ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
+            return View(response);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var task = _repo.Tasks.Single(x => x.TaskId == id);
+            ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
+            return View("AddEditTask", task);
         }
     }
 }
