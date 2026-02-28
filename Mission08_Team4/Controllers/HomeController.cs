@@ -58,5 +58,28 @@ namespace Mission08_Team4.Controllers
             ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
             return View("AddEditTask", task);
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var task = _repo.Tasks.Single(x => x.TaskId == id);
+            return View(task);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(TaskItem task)
+        {
+            _repo.DeleteTask(task);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult MarkCompleted(int id)
+        {
+            var task = _repo.Tasks.Single(x => x.TaskId == id);
+            task.Completed = true;
+            _repo.UpdateTask(task);
+            return RedirectToAction("Index");
+        }
     }
 }

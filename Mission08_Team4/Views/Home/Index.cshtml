@@ -1,40 +1,207 @@
-﻿@{
-    ViewData["Title"] = "Assignment 8 Home";
+﻿@model IEnumerable<TaskItem>
+@{
+    ViewData["Title"] = "Quadrant View";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-10 col-lg-8">
-        <div class="text-center py-5">
-            <h1 class="display-4 fw-bold">Assignment 8 Task Manager</h1>
-            <p class="lead">Isaac, Porter, and Dallan's Mission 8 project is wired up and ready for task tracking features.</p>
+<div class="container text-center mt-4">
+    <div class="row mb-2 font-weight-bold">
+        <div class="col-2"></div>
+        <div class="col-5 border bg-light p-2">URGENT</div>
+        <div class="col-5 border bg-light p-2">NOT URGENT</div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 border bg-light p-2 d-flex align-items-center justify-content-center font-weight-bold" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+            IMPORTANT
         </div>
-
-        <div class="card shadow-sm">
-            <div class="card-body p-4">
-                <h2 class="h4 mb-3">Project Status</h2>
-                <p>The database is connected, the required categories are seeded, and the repository is ready for the rest of the assignment features.</p>
-
-                <div class="row g-3 mt-2">
-                    <div class="col-md-4">
-                        <div class="border rounded p-3 h-100">
-                            <h3 class="h6">Database</h3>
-                            <p class="mb-0">SQLite is configured and creates the task database automatically.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="border rounded p-3 h-100">
-                            <h3 class="h6">Categories</h3>
-                            <p class="mb-0">Home, School, Work, and Church are seeded for the dropdown.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="border rounded p-3 h-100">
-                            <h3 class="h6">Next Step</h3>
-                            <p class="mb-0">Views and controller actions can now be connected to the repository.</p>
+        
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 1</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 1 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 2</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 2 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 border bg-light p-2 d-flex align-items-center justify-content-center font-weight-bold" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+            NOT IMPORTANT
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 3</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 3 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 4</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 4 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>@model IEnumerable<TaskItem>
+@{
+    ViewData["Title"] = "Quadrant View";
+}
+
+<div class="container text-center mt-4">
+    <div class="row mb-2 font-weight-bold">
+        <div class="col-2"></div>
+        <div class="col-5 border bg-light p-2">URGENT</div>
+        <div class="col-5 border bg-light p-2">NOT URGENT</div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 border bg-light p-2 d-flex align-items-center justify-content-center font-weight-bold" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+            IMPORTANT
+        </div>
+        
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 1</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 1 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 2</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 2 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 border bg-light p-2 d-flex align-items-center justify-content-center font-weight-bold" style="writing-mode: vertical-rl; transform: rotate(180deg);">
+            NOT IMPORTANT
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 3</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 3 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="col-5 border p-3 text-start">
+            <h4>Quadrant 4</h4>
+            @foreach (var t in Model.Where(x => x.Quadrant == 4 && x.Completed == false))
+            {
+                <div class="card mb-2 shadow-sm">
+                    <div class="card-body py-2">
+                        <h5 class="card-title mb-1">@t.TaskName</h5>
+                        <p class="card-text mb-1 small text-muted">Due: @t.DueDate | Category: @t.Category?.CategoryName</p>
+                        <div class="d-flex gap-2 mt-2">
+                            <a class="btn btn-sm btn-outline-primary" asp-controller="Home" asp-action="Edit" asp-route-id="@t.TaskId">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@t.TaskId">Delete</a>
+                            <form method="post" asp-controller="Home" asp-action="MarkCompleted" asp-route-id="@t.TaskId">
+                                <button type="submit" class="btn btn-sm btn-outline-success">Complete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
