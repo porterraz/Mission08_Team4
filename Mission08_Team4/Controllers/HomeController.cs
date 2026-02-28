@@ -9,15 +9,14 @@ namespace Mission08_Team4.Controllers
     {
         private ITaskRepository _repo;
 
-        // Constructor for Dependency Injection 
         public HomeController(ITaskRepository temp)
         {
             _repo = temp;
         }
 
+        // Display all tasks sorted by quadrant
         public IActionResult Index()
         {
-            // The Quadrant View logic will be handled by Person 3 
             var tasks = _repo.Tasks.Include(x => x.Category).ToList();
             return View(tasks);
         }
@@ -25,7 +24,6 @@ namespace Mission08_Team4.Controllers
         [HttpGet]
         public IActionResult AddEditTask()
         {
-            // Populate dropdown with categories from the database 
             ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
             return View(new TaskItem());
         }
@@ -35,7 +33,7 @@ namespace Mission08_Team4.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Check if it's a new task or an update 
+                // New task has TaskId of 0
                 if (response.TaskId == 0)
                 {
                     _repo.AddTask(response);
@@ -47,7 +45,6 @@ namespace Mission08_Team4.Controllers
                 return RedirectToAction("Index");
             }
 
-            // If validation fails, reload the form with categories 
             ViewBag.Categories = _repo.Categories.OrderBy(x => x.CategoryName).ToList();
             return View(response);
         }

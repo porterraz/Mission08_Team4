@@ -8,7 +8,7 @@
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <form method="post">
+    <form method="post" asp-action="AddEditTask" asp-controller="Home">
         <input type="hidden" asp-for="TaskId" />
 
         <div class="form-group mb-3">
@@ -21,6 +21,7 @@
             <input asp-for="DueDate" type="date" class="form-control" />
         </div>
 
+        <!-- Eisenhower Matrix quadrants -->
         <div class="form-group mb-3">
             <label asp-for="Quadrant">Quadrant (1-4)</label>
             <select asp-for="Quadrant" class="form-control">

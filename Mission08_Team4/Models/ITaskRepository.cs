@@ -2,6 +2,7 @@
 
 namespace Mission08_Team4.Models
 {
+    // Repository pattern for data access
     public interface ITaskRepository
     {
         IQueryable<TaskItem> Tasks { get; }

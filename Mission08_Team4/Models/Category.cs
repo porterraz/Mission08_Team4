@@ -2,6 +2,7 @@
 
 namespace Mission08_Team4.Models
 {
+    // Categories: Home, Work, School, Church (predefined set for this app)
     public class Category
     {
         [Key]

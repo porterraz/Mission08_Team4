@@ -13,7 +13,7 @@ namespace Mission08_Team4.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Seed the fixed category options required by the assignment.
+            // Seed the 4 fixed categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryId = 1, CategoryName = "Home" },
                 new Category { CategoryId = 2, CategoryName = "School" },
